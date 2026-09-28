@@ -1,0 +1,50 @@
+# Copy this to sarview.conf in the directory you start sarview from,
+# or to ~/.config/myopip-monitor/sarview.conf.
+#
+# A flag on the command line wins over an environment variable,
+# which wins over this file. Leave a line out and the built-in
+# default stays in place. The listener is always 127.0.0.1;
+# there is no setting for that.
+#
+# ~/.ssh/config is a different file. `host` below is only the
+# Host alias from that file.
+
+[ssh]
+host = myopip
+sa_dir = /var/log/sysstat
+# Seconds. connect_timeout is the SSH handshake. The other two
+# are how long the remote bash script may run.
+connect_timeout = 20
+catalog_timeout = 60
+fetch_timeout = 180
+
+[server]
+port = 8765
+
+[cache]
+dir = ~/.cache/myopip-monitor
+# Seconds to reuse the file list before listing /var/log/sysstat again.
+catalog_ttl = 120
+
+[viewer]
+title = Sysstat history
+# Panels, left to right as listed. Any of:
+# cpu, memory, swap, load, disk, network
+charts = cpu, memory, swap, load, disk, network
+# Idle sits near 100% and flattens the CPU chart. yes hides it
+# until you click the legend.
+hide_idle = yes
+# Filled in when the page opens, when you change the date,
+# when you use a range whose value is day, and on a double-click.
+default_from = 00:00:00
+default_to = 23:59:00
+# Shortcut buttons. label=seconds, or label=day for the default window.
+ranges = 15m=900, 1h=3600, 6h=21600, Full day=day
+# Readout turns red at or above these. Charts are unchanged.
+hot_user = 50
+hot_iowait = 5
+hot_ram = 80
+hot_swap = 10
+# Open the sample table on its own when the window has this many
+# rows or fewer. 0 leaves it shut.
+table_open_below = 24

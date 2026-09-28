@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sysstat history</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23e09a2b' width='16' height='16'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div>
+        <p class="eyebrow">Local sysstat</p>
+        <h1>Sysstat history</h1>
+      </div>
+      <div class="identity" id="identity">Connecting…</div>
+    </header>
+
+    <section class="controls" aria-label="Time range">
+      <div class="control">
+        <label for="date">Date</label>
+        <div class="date-row">
+          <button type="button" id="prev" aria-label="Previous date">←</button>
+          <select id="date"></select>
+          <button type="button" id="next" aria-label="Next date">→</button>
+        </div>
+      </div>
+      <div class="control">
+        <label for="from">From</label>
+        <input id="from" type="time" step="1" value="00:00:00">
+      </div>
+      <div class="control">
+        <label for="to">To</label>
+        <input id="to" type="time" step="1" value="23:59:00">
+      </div>
+      <div class="control chips" role="group" aria-label="Quick ranges">
+        <button type="button" data-span="900">15m</button>
+        <button type="button" data-span="3600">1h</button>
+        <button type="button" data-span="21600">6h</button>
+        <button type="button" data-span="day">Full day</button>
+      </div>
+      <button type="button" id="refresh" class="refresh">Refresh</button>
+    </section>
+
+    <p id="status" class="status" role="status"></p>
+    <p id="error" class="error" hidden></p>
+    <p id="warnings" class="warnings" hidden></p>
+
+    <section class="readouts" aria-live="polite">
+      <article id="cursor-card" class="card"></article>
+      <article id="pin-card" class="card"></article>
+    </section>
+
+    <section id="peaks" class="peaks"></section>
+    <main id="charts"></main>
+    <section id="table-wrap"></section>
+  </div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

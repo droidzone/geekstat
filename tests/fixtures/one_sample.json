@@ -1,0 +1,39 @@
+{
+  "sysstat": {
+    "hosts": [
+      {
+        "nodename": "localhost",
+        "sysname": "Linux",
+        "release": "6.8.0-142-generic",
+        "machine": "x86_64",
+        "number-of-cpus": 2,
+        "file-date": "2026-09-28",
+        "file-utc-time": "02:50:01",
+        "timezone": "UTC",
+        "statistics": [
+          {
+            "timestamp": {"date": "2026-09-28", "time": "08:25:07", "utc": 0, "interval": 306},
+            "cpu-load": [
+              {"cpu": "all", "usr": 10.26, "nice": 0.86, "sys": 2.22, "iowait": 0.16, "steal": 0.09, "irq": 0.00, "soft": 0.06, "guest": 0.00, "gnice": 0.00, "idle": 86.35}
+            ],
+            "memory": {"memfree": 1291792, "avail": 2338728, "memused": 1323784, "memused-percent": 33.01, "buffers": 140060, "cached": 1039348, "swpfree": 507900, "swpused": 0, "swpused-percent": 0.00},
+            "queue": {"runq-sz": 0, "plist-sz": 290, "ldavg-1": 0.02, "ldavg-5": 0.22, "ldavg-15": 0.16, "blocked": 0},
+            "disk": [
+              {"disk-device": "loop0", "tps": 0.00, "rkB": 0.00, "wkB": 0.00, "util-percent": 0.00},
+              {"disk-device": "sda", "tps": 30.85, "rkB": 134.25, "wkB": 477.22, "util-percent": 0.88},
+              {"disk-device": "sda1", "tps": 3.00, "rkB": 10.00, "wkB": 12.00, "util-percent": 0.20},
+              {"disk-device": "sdb", "tps": 0.00, "rkB": 0.00, "wkB": 0.00, "util-percent": 0.00}
+            ],
+            "network": {
+              "net-dev": [
+                {"iface": "lo", "rxkB": 6.36, "txkB": 6.36},
+                {"iface": "eth0", "rxkB": 2.39, "txkB": 1.96}
+              ]
+            }
+          }
+        ],
+        "restarts": []
+      }
+    ]
+  }
+}

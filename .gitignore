@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.cache/
+.cursor/
+.idea/
+.vscode/
+.venv/
+venv/
+sarview.conf
+*.log
