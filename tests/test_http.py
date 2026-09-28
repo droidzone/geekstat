@@ -39,7 +39,9 @@ class HttpTests(unittest.TestCase):
             make_server(object(), port=0, bind="0.0.0.0")
         page = urlopen(self.base + "/", timeout=5)
         body = page.read().decode()
-        self.assertIn("Sysstat history", body)
+        self.assertIn("Geekstat", body)
+        self.assertIn("https://geekmaze.com", body)
+        self.assertIn("Geekmaze", body)
         self.assertEqual(page.status, 200)
         try:
             urlopen(self.base + "/../sarview/cli.py", timeout=5)
@@ -50,7 +52,7 @@ class HttpTests(unittest.TestCase):
 
     def test_settings_are_served_with_the_page(self):
         settings = json.load(urlopen(self.base + "/api/settings", timeout=5))
-        self.assertEqual(settings["title"], "Sysstat history")
+        self.assertEqual(settings["title"], "Geekstat")
         self.assertEqual(settings["charts"][0], "cpu")
         self.assertTrue(settings["hide_idle"])
         self.assertEqual(settings["ranges"][-1]["span"], "day")

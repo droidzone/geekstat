@@ -1,6 +1,6 @@
 # Configuration
 
-sarview runs with built-in defaults if you never create a config file. Those defaults are the same values as `sarview.conf.example`. Copy that file when you want to change something and keep the change.
+Geekstat runs with built-in defaults if you never create a config file. Those defaults are the same values as `sarview.conf.example`. Copy that file when you want to change something and keep the change.
 
 ```bash
 cp sarview.conf.example sarview.conf
@@ -9,15 +9,22 @@ cp sarview.conf.example sarview.conf
 or, if you would rather not keep it next to the code:
 
 ```bash
-mkdir -p ~/.config/myopip-monitor
-cp sarview.conf.example ~/.config/myopip-monitor/sarview.conf
+# macOS
+mkdir -p "$HOME/Library/Application Support/Geekstat"
+cp sarview.conf.example "$HOME/Library/Application Support/Geekstat/sarview.conf"
+
+# Linux
+mkdir -p ~/.config/geekstat
+cp sarview.conf.example ~/.config/geekstat/sarview.conf
 ```
+
+On Windows, copy it to `%APPDATA%\Geekstat\sarview.conf`.
 
 On startup the process looks in this order and stops at the first file it finds:
 
 1. `--config /path/to/sarview.conf`, or `SARVIEW_CONFIG` if you did not pass `--config`
 2. `./sarview.conf` in the directory you started it from
-3. `~/.config/myopip-monitor/sarview.conf`
+3. The per-user file: `~/Library/Application Support/Geekstat/sarview.conf` on macOS, `%APPDATA%\Geekstat\sarview.conf` on Windows, `~/.config/geekstat/sarview.conf` on Linux (`$XDG_CONFIG_HOME/geekstat/sarview.conf` when that variable is set)
 
 `sarview.conf` is for this machine. It is listed in `.gitignore`. The example file is the one that belongs in git.
 
@@ -34,7 +41,7 @@ python3 -m sarview --port 9001
 
 The page reads the `[viewer]` section from the process that is actually running. Restart after you edit the file. Refresh in the browser only re-reads `sa` files, not the config.
 
-The process only binds `127.0.0.1`. That is not configurable. `localhost` on macOS sometimes goes to IPv6, so use `http://127.0.0.1:<port>`.
+The process only binds `127.0.0.1`. That is not configurable. `localhost` on macOS and Windows sometimes goes to IPv6, so use `http://127.0.0.1:<port>`.
 
 `~/.ssh/config` is separate. The `host` value here is the `Host` alias in that file, the same name you would pass to `ssh`.
 
@@ -75,7 +82,7 @@ Any integer from 1 to 65535. If something else already has 8765, pick another po
 
 | Key | Default | What it changes |
 | --- | --- | --- |
-| `dir` | `~/.cache/myopip-monitor` | Where decoded JSON is stored. Also `--cache-dir` and `SARVIEW_CACHE`. |
+| `dir` | per operating system | Where decoded JSON is stored. Also `--cache-dir` and `SARVIEW_CACHE`. macOS: `~/Library/Caches/Geekstat`. Windows: `%LOCALAPPDATA%\Geekstat`. Linux: `~/.cache/geekstat`, or `$XDG_CACHE_HOME/geekstat`. |
 | `catalog_ttl` | `120` | Seconds to trust the file list. Also `--catalog-ttl` and `SARVIEW_CATALOG_TTL`. `0` lists the server on every request. |
 
 Decoded files land in `<dir>/<host>/`. A day is decoded again only when the remote file's size or mtime changes, or when you hit Refresh (that forces a new listing; unchanged files still come from disk).
@@ -90,7 +97,7 @@ These only affect the page. They are not flags and they are not environment vari
 
 | Key | Default | What it changes |
 | --- | --- | --- |
-| `title` | `Sysstat history` | Browser title and the heading. 80 characters max. |
+| `title` | `Geekstat` | Optional label under the Geekstat name. When it is not `Geekstat`, it is also the browser tab title, as `Your label · Geekstat`. The Geekstat name, the Geekmaze byline, and the link to https://geekmaze.com stay. 80 characters max. |
 | `charts` | all six, in the usual order | Which panels are drawn, and in what order. |
 | `hide_idle` | `yes` | CPU idle starts hidden. `no` draws it immediately. |
 | `default_from` | `00:00:00` | Start of the window filled in for a date. |

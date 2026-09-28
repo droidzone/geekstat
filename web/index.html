@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sysstat history</title>
+  <title>Geekstat</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23e09a2b' width='16' height='16'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="app">
     <header class="top">
-      <div>
-        <p class="eyebrow">Local sysstat</p>
-        <h1>Sysstat history</h1>
+      <div class="brand">
+        <p class="eyebrow">Sysstat viewer</p>
+        <h1>Geekstat</h1>
+        <p class="byline">by <a href="https://geekmaze.com" target="_blank" rel="noopener noreferrer">Geekmaze</a></p>
+        <p class="tagline">A simple sysstat viewer. No collector, no database, no extra overhead.</p>
+        <p class="instance" id="instance" hidden></p>
       </div>
       <div class="identity" id="identity">Connecting…</div>
     </header>
@@ -55,6 +58,10 @@
     <section id="peaks" class="peaks"></section>
     <main id="charts"></main>
     <section id="table-wrap"></section>
+    <footer class="foot">
+      <a href="https://geekmaze.com" target="_blank" rel="noopener noreferrer">geekmaze.com</a>
+      <span>Free to use. Do not rebrand or sell.</span>
+    </footer>
   </div>
   <script type="module" src="/app.js"></script>
 </body>

@@ -185,9 +185,13 @@ async function loadSettings() {
   } catch {
     ui = defaultUi();
   }
-  document.title = ui.title;
-  const heading = document.querySelector("h1");
-  if (heading) heading.textContent = ui.title;
+  const custom = Boolean(ui.title) && ui.title !== "Geekstat";
+  document.title = custom ? `${ui.title} · Geekstat` : "Geekstat";
+  const instance = document.querySelector("#instance");
+  if (instance) {
+    instance.hidden = !custom;
+    instance.textContent = custom ? ui.title : "";
+  }
   fromInput.value = ui.from;
   toInput.value = ui.to;
   const group = document.querySelector(".chips");
@@ -214,7 +218,7 @@ function onSpan(span) {
 
 function defaultUi() {
   return {
-    title: "Sysstat history",
+    title: "Geekstat",
     charts: ["cpu", "memory", "swap", "load", "disk", "network"],
     hideIdle: true,
     from: "00:00:00",

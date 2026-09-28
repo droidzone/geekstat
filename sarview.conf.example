@@ -1,5 +1,9 @@
-# Copy this to sarview.conf in the directory you start sarview from,
-# or to ~/.config/myopip-monitor/sarview.conf.
+# Geekstat, by Geekmaze. https://geekmaze.com
+# Copy this to sarview.conf in the directory you start Geekstat from,
+# or to the per-user file:
+#   macOS: ~/Library/Application Support/Geekstat/sarview.conf
+#   Windows: %APPDATA%\Geekstat\sarview.conf
+#   Linux: ~/.config/geekstat/sarview.conf
 #
 # A flag on the command line wins over an environment variable,
 # which wins over this file. Leave a line out and the built-in
@@ -22,12 +26,16 @@ fetch_timeout = 180
 port = 8765
 
 [cache]
-dir = ~/.cache/myopip-monitor
+# Omit dir to use the folder for this operating system:
+#   macOS: ~/Library/Caches/Geekstat
+#   Windows: %LOCALAPPDATA%\Geekstat
+#   Linux: ~/.cache/geekstat
+# dir = ~/.cache/geekstat
 # Seconds to reuse the file list before listing /var/log/sysstat again.
 catalog_ttl = 120
 
 [viewer]
-title = Sysstat history
+title = Geekstat
 # Panels, left to right as listed. Any of:
 # cpu, memory, swap, load, disk, network
 charts = cpu, memory, swap, load, disk, network

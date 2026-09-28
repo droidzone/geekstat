@@ -50,6 +50,37 @@ h1 {
   letter-spacing: -0.035em;
 }
 
+.byline,
+.tagline,
+.instance {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.byline,
+.tagline { color: var(--muted); }
+
+.tagline { max-width: 40rem; }
+
+.byline a,
+.foot a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.byline a:hover,
+.foot a:hover { text-decoration: underline; }
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .identity {
   color: var(--muted);
   text-align: right;

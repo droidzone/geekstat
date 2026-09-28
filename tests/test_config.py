@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from sarview.config import load_settings, viewer_payload
+from sarview.config import default_cache_dir, load_settings, user_config_file, viewer_payload
 from sarview.errors import SarviewError
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +21,8 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual(settings.connect_timeout, 20)
         self.assertEqual(settings.catalog_timeout, 60)
         self.assertEqual(settings.fetch_timeout, 180)
-        self.assertTrue(str(settings.cache_dir).endswith("/.cache/myopip-monitor"))
+        self.assertEqual(Path(settings.cache_dir), Path(default_cache_dir()))
+        self.assertEqual(settings.title, "Geekstat")
         self.assertEqual(settings.charts, ("cpu", "memory", "swap", "load", "disk", "network"))
         self.assertTrue(settings.hide_idle)
         self.assertEqual(settings.default_from, "00:00:00")
@@ -94,13 +95,42 @@ class ConfigTests(unittest.TestCase):
             cwd = root / "work"
             home = root / "home"
             cwd.mkdir()
-            config_home = home / ".config" / "myopip-monitor"
+            config_home = user_config_file(home, env={}).parent
             config_home.mkdir(parents=True)
             (cwd / "sarview.conf").write_text("[server]\nport = 9000\n", encoding="utf-8")
             (config_home / "sarview.conf").write_text("[server]\nport = 9001\n", encoding="utf-8")
             settings = load_settings(env={}, cwd=cwd, home=home)
             self.assertEqual(settings.port, 9000)
             self.assertEqual(settings.path, str(cwd / "sarview.conf"))
+
+    def test_paths_follow_the_operating_system(self):
+        home = Path("/Users/ada")
+        self.assertEqual(
+            user_config_file(home, platform="darwin", env={}),
+            home / "Library" / "Application Support" / "Geekstat" / "sarview.conf",
+        )
+        self.assertEqual(
+            Path(default_cache_dir(home, platform="darwin", env={})),
+            home / "Library" / "Caches" / "Geekstat",
+        )
+        self.assertEqual(
+            user_config_file(home, platform="linux", env={}),
+            home / ".config" / "geekstat" / "sarview.conf",
+        )
+        self.assertEqual(
+            Path(default_cache_dir(home, platform="linux", env={"XDG_CACHE_HOME": "/tmp/cache"})),
+            Path("/tmp/cache/geekstat"),
+        )
+        roaming = Path("C:/Users/ada/AppData/Roaming")
+        local = Path("C:/Users/ada/AppData/Local")
+        self.assertEqual(
+            user_config_file(home, platform="win32", env={"APPDATA": str(roaming)}),
+            roaming / "Geekstat" / "sarview.conf",
+        )
+        self.assertEqual(
+            Path(default_cache_dir(home, platform="win32", env={"LOCALAPPDATA": str(local)})),
+            local / "Geekstat",
+        )
 
     def test_bad_values_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:

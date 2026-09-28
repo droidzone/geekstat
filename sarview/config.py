@@ -47,6 +47,7 @@ def user_config_file(home: Path, platform: str | None = None, env=None) -> Path:
     root = Path(base) if base else home / ".config"
     return root / "geekstat" / "sarview.conf"
 
+
 _SECTIONS = {
     "ssh": {"host", "sa_dir", "connect_timeout", "catalog_timeout", "fetch_timeout"},
     "server": {"port"},
